@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RISE | Accordion</title>
+
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="../../assets/css/colors.css">
+    <link rel="stylesheet" href="../../assets/css/typography.css">
+    <link rel="stylesheet" href="../../assets/css/spacing-and-effects.css">
+    <link rel="stylesheet" href="../../assets/css/icons.css">
+
+    <!-- Playground CSS -->
+    <link rel="stylesheet" href="../../assets/css/playground.css">
+
+    <style>
+        .accordion-container {
+            justify-content: center;
+            align-items: center;
+            width: 608px;
+            background-color: var(--r-color-neutral-lightest);
+            border-radius: var(--r-border-radius-sm);
+            box-shadow: var(--r-shadow-sm);
+            overflow: visible;
+            margin: 0 auto;
+            border: 1px solid var(--r-color-neutral-lightest);
+        }
+
+        .accordion-item {
+            justify-content: center;
+            align-items: center;
+            background-color: var(--r-color-neutral-lightest);
+            margin: 0;
+            border-bottom: var(--r-border-width-sm) solid var(--r-color-neutral-40);
+            overflow: hidden;
+        }
+
+        .accordion-item:last-child {
+            border-bottom: none;
+        }
+
+        .accordion-item[open] {
+            background-color: var(--r-color-neutral-10);
+            border-radius: var(--r-border-radius-sm);
+        }
+
+        .accordion-item[open] .header-title {
+            font-family: var(--r-ff-highlight);
+            font-weight: var(--r-font-weight-semibold);
+        }
+
+        .accordion-item[open]:hover {
+            border-radius: var(--r-border-radius-sm);
+        }
+
+        .accordion-header {
+            display: flex;
+            align-items: center;
+            padding: var(--r-spacing-sm);
+            cursor: pointer;
+            list-style: none;
+            overflow: visible;
+            gap: var(--r-spacing-nano);
+            position: relative;
+        }
+
+        .accordion-header::-webkit-details-marker {
+            display: none;
+        }
+
+        .accordion-header:focus:not(:focus-visible) {
+            outline: none;
+        }
+
+        .accordion-item:has(.accordion-header:focus-visible),
+        .accordion-item:has(.accordion-header.simulate-focus) {
+            outline: var(--r-border-width-md) solid var(--r-color-accessibility-light);
+            outline-offset: calc(-1 * var(--r-border-width-md));
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: var(--r-spacing-nano);
+            min-width: 0;
+        }
+
+        .header-title {
+            white-space: nowrap;
+            font-family: var(--r-ff-highlight);
+            font-weight: var(--r-font-weight-regular);
+            font-size: var(--r-font-size-2xs);
+            letter-spacing: var(--r-letter-spacing-sm);
+            color: var(--r-color-brand-secondary-default);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex-grow: 1;
+        }
+
+        .header-context {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+            gap: 0;
+            color: var(--r-color-neutral-70);
+            font-size: var(--r-font-size-4xs);
+            letter-spacing: 0.05px;
+            font-family: var(--r-ff-base), sans-serif;
+            font-weight: var(--r-font-weight-regular);
+            text-overflow: ellipsis;
+            flex-shrink: 0;
+        }
+
+        .icon-Cube {
+            display: flex;
+            font-size: var(--r-spacing-sm);
+            width: var(--r-spacing-sm);
+            height: var(--r-spacing-sm);
+            color: var(--r-color-brand-secondary-default);
+        }
+
+        .icon-Arrow-Down-2 {
+            font-size: var(--r-spacing-sm);
+            width: var(--r-spacing-sm);
+            height: var(--r-spacing-sm);
+            color: var(--r-color-brand-secondary-default);
+            margin-left: var(--r-fixed-3xs);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .accordion-item[open] .icon-Arrow-Down-2 {
+            transform: rotate(180deg);
+        }
+
+        .icon-Info-Circle {
+            display: flex;
+            font-size: var(--r-spacing-2xs);
+            width: var(--r-spacing-2xs);
+            height: var(--r-spacing-2xs);
+            color: var(--r-color-info-pure);
+        }
+
+        .accordion-content {
+            padding: 0 var(--r-spacing-sm);
+            font-family: var(--r-ff-base), sans-serif;
+        }
+
+        .accordion-item[open] .accordion-content {
+            padding-bottom: var(--r-spacing-sm);
+        }
+
+        .accordion-content p {
+            margin: 0;
+            line-height: var(--r-line-height-xs);
+            font-family: var(--r-ff-base);
+            font-weight: var(--r-font-weight-regular);
+            font-size: var(--r-font-size-3xs);
+            letter-spacing: var(--r-letter-spacing-md);
+            color: var(--r-color-brand-secondary-default);
+        }
+
+        .accordion-item:hover:not([open]) {
+            background-color: var(--r-color-neutral-10);
+            border-radius: var(--r-border-radius-sm);
+        }
+
+        .accordion-item.highlighted {
+            outline: var(--r-border-width-md) solid var(--r-color-info-pure);
+            outline-offset: calc(-1 * var(--r-border-width-md));
+        }
+
+        .accordion-container.mobile {
+            width: 380px;
+        }
+
+        .accordion-container.mobile .accordion-content p {
+            font-size: var(--r-font-size-2xs);
+            letter-spacing: var(--r-letter-spacing-md);
+        }
+
+        @media (max-width: 768px) {
+            .accordion-container {
+                width: 380px;
+            }
+
+            .accordion-content p {
+                font-size: var(--r-font-size-2xs);
+                letter-spacing: var(--r-letter-spacing-md);
+            }
+        }
+
+        /* TOOLTIP STYLES - Copy from tooltip component */
+        .tooltip {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .tooltip-infoIcon {
+            color: var(--r-color-info-pure);
+        }
+
+        .tooltiptext {
+            visibility: hidden;
+            opacity: 0;
+            background-color: var(--r-color-accessibility-dark);
+            color: var(--r-color-neutral-lightest);
+            border-radius: var(--r-border-radius-sm);
+            position: absolute;
+            z-index: 1000;
+            font-size: var(--r-font-size-4xs);
+            font-family: var(--r-ff-base);
+            font-weight: var(--r-font-weight-regular);
+            line-height: var(--r-line-height-md);
+            white-space: nowrap;
+            transition: opacity 0.3s, visibility 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--r-spacing-nano) var(--r-spacing-2xs) var(--r-spacing-nano) var(--r-spacing-2xs);
+            letter-spacing: var(--r-letter-spacing-md);
+            box-shadow: 0px 0px 1px 0px rgba(207, 207, 209, 0.47);
+            box-shadow: 0px 2px 4px 0px rgba(32, 37, 50, 0.08);
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .tooltipLabel {
+            max-width: 200px;
+            white-space: normal;
+        }
+
+        /* Arrow for tooltip */
+        .tooltiptext::after {
+            content: "";
+            position: absolute;
+            border-width: 6px;
+            border-style: solid;
+        }
+
+        /* TOP Position */
+        .tooltip.top .tooltiptext {
+            bottom: 150%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .tooltip.top .tooltiptext::after {
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-color: var(--r-color-accessibility-dark) transparent transparent transparent;
+        }
+
+        /* RIGHT Position */
+        .tooltip.right .tooltiptext {
+            top: 50%;
+            left: 150%;
+            transform: translateY(-50%);
+        }
+
+        .tooltip.right .tooltiptext::after {
+            top: 50%;
+            right: 100%;
+            transform: translateY(-50%);
+            border-color: transparent var(--r-color-accessibility-dark) transparent transparent;
+        }
+
+        /* Mobile tooltip styles */
+        .tooltip.mobile .tooltiptext {
+            border-radius: var(--r-border-radius-md);
+            font-size: var(--r-font-size-2xs);
+            line-height: 20px;
+        }
+
+        @media (max-width: 440px) {
+            .tooltiptext {
+                border-radius: var(--r-border-radius-md);
+                font-size: var(--r-font-size-2xs);
+                line-height: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <button class="playground-icon" onclick="togglePlayground()"></button>
+
+    <!-- Main Content -->
+    <div class="main-content" id="main-content">
+        <div class="accordion-container" id="accordionContainer">
+            <details name="lista" class="accordion-item">
+                <summary class="accordion-header" tabindex="0" role="button">
+                    <div class="header-content">
+                        <i class="icon icon-Cube"></i>
+                        <span class="header-title">Accordions help reduce cognitive load</span>
+                        <span class="tooltip right">
+                            <i class="icon icon-Info-Circle tooltip-infoIcon"></i>
+                            <span class="tooltiptext">
+                                <div class="tooltipLabel">Tooltip</div>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="header-context">
+                        <span>Context info</span>
+                        <i class="icon icon-Arrow-Down-2"></i>
+                    </div>
+                </summary>
+                <div class="accordion-content">
+                    <p>
+                        Accordions help reduce cognitive load by allowing users to choose which sections of content to
+                        view, similar to how FAQs let users expand only the questions they care about. However, avoid
+                        placing essential information required for completing a task inside an accordion. Instead,
+                        consider presenting it in a more prominent and
+                        immediately visible format.
+                    </p>
+                </div>
+            </details>
+            <details name="lista" class="accordion-item">
+                <summary class="accordion-header" tabindex="0" role="button">
+                    <div class="header-content">
+                        <i class="icon icon-Cube"></i>
+                        <span class="header-title">Accordions help reduce cognitive load</span>
+                        <span class="tooltip right">
+                            <i class="icon icon-Info-Circle tooltip-infoIcon"></i>
+                            <span class="tooltiptext">
+                                <div class="tooltipLabel">Tooltip</div>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="header-context">
+                        <span>Context info</span>
+                        <i class="icon icon-Arrow-Down-2"></i>
+                    </div>
+                </summary>
+                <div class="accordion-content">
+                    <p>
+                        Accordions help reduce cognitive load by allowing users to choose which sections of content to
+                        view, similar to how FAQs let users expand only the questions they care about. However, avoid
+                        placing essential information required for completing a task inside an accordion. Instead,
+                        consider presenting it in a more prominent and
+                        immediately visible format.
+                    </p>
+                </div>
+            </details>
+        </div>
+    </div>
+
+    <!-- Playground Panel -->
+    <div class="playground" id="playground">
+        <div class="menu-header">
+            <h3>Accordion - Playground</h3>
+            <button class="close-menu" onclick="togglePlayground()">&times;</button>
+        </div>
+
+        <!-- Items Dropdown -->
+        <div class="menu-section">
+            <label for="itemsSelect">Itens</label>
+            <select class="menu-button" id="itemsSelect" onchange="handleItemsChange(this.value)">
+                <option value="2" selected>2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+
+        <!-- Highlighted Toggle -->
+        <div class="menu-section">
+            <div class="switch_toggle left">
+                <div class="label">Highlighted</div>
+                <div class="switch_toggle_secondary">
+                    <button type="button" class="switch is-disabled" id="highlightedToggle"
+                        onclick="handleToggleHighlighted(this)">
+                        <span class="slider"></span>
+                    </button>
+                    <div class="switch_text right"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Focus Toggle -->
+        <div class="menu-section">
+            <div class="switch_toggle left">
+                <div class="label">Focus</div>
+                <div class="switch_toggle_secondary">
+                    <button type="button" class="switch is-disabled" id="focusToggle" onclick="handleToggleFocus(this)">
+                        <span class="slider"></span>
+                    </button>
+                    <div class="switch_text right"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Toggle -->
+        <div class="menu-section">
+            <div class="switch_toggle left">
+                <div class="label">Mobile</div>
+                <div class="switch_toggle_secondary">
+                    <button type="button" class="switch is-disabled" id="mobileToggle"
+                        onclick="handleToggleMobile(this)">
+                        <span class="slider"></span>
+                    </button>
+                    <div class="switch_text right"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Title Input -->
+        <div class="menu-section">
+            <div class="playground-input-container">
+                <label for="titleInput"
+                    style="font-size: var(--r-font-size-3xs); font-weight: normal; font-family: var(--r-ff-base), sans-serif;">Title</label>
+                <div class="playground-input-row">
+                    <input type="text" id="titleInput" class="playground-input-data" placeholder="Enter title"
+                        value="Accordions help reduce cognitive load" onchange="handleTitleChange(this.value)">
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Icon Toggle -->
+        <div class="menu-section">
+            <div class="switch_toggle left">
+                <div class="label">Info Icon</div>
+                <div class="switch_toggle_secondary">
+                    <button type="button" class="switch active" id="infoIconToggle"
+                        onclick="handleToggleInfoIcon(this)">
+                        <span class="slider active"></span>
+                    </button>
+                    <div class="switch_text right"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Icon Left Toggle -->
+        <div class="menu-section">
+            <div class="switch_toggle left">
+                <div class="label">Icon Left</div>
+                <div class="switch_toggle_secondary">
+                    <button type="button" class="switch active" id="iconLeftToggle"
+                        onclick="handleToggleIconLeft(this)">
+                        <span class="slider active"></span>
+                    </button>
+                    <div class="switch_text right"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Show Secondary Label Toggle -->
+        <div class="menu-section">
+            <div class="switch_toggle left">
+                <div class="label">Context Info</div>
+                <div class="switch_toggle_secondary">
+                    <button type="button" class="switch active" id="secondaryLabelToggle"
+                        onclick="handleToggleSecondaryLabel(this)">
+                        <span class="slider active"></span>
+                    </button>
+                    <div class="switch_text right"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Export Options -->
+        <div class="menu-section">
+            <h4>Use this Component</h4>
+            <button class="menu-button" onclick="copyHTML()">Copy HTML</button>
+            <button class="menu-button" onclick="copyCSS()">Copy CSS</button>
+            <button class="menu-button" onclick="zipComponent()">Download Component (.zip)</button>
+        </div>
+    </div>
+
+    <script src="../playground/assets/playground.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const accordionContainer = document.getElementById('accordionContainer');
+
+            const baseItems = Array.from(accordionContainer.querySelectorAll('.accordion-item'));
+
+            const itemsSelect = document.getElementById('itemsSelect');
+            if (itemsSelect) {
+                updateItemCount(parseInt(itemsSelect.value));
+            }
+        });
+
+        function updateItemCount(count) {
+            const accordionContainer = document.getElementById('accordionContainer');
+            const currentItems = accordionContainer.querySelectorAll('.accordion-item');
+            const currentCount = currentItems.length;
+
+            if (count > currentCount) {
+                const itemToClone = currentItems[currentItems.length - 1];
+                for (let i = currentCount; i < count; i++) {
+                    const clone = itemToClone.cloneNode(true);
+                    clone.removeAttribute('open');
+                    accordionContainer.appendChild(clone);
+                }
+            } else if (count < currentCount) {
+                for (let i = currentCount - 1; i >= count; i--) {
+                    currentItems[i].remove();
+                }
+            }
+
+            applyCurrentOptions();
+        }
+
+        function applyCurrentOptions() {
+            const isMobile = document.getElementById('mobileToggle')?.classList.contains('active');
+            const showSecondary = document.getElementById('secondaryLabelToggle')?.classList.contains('active');
+            const iconLeft = document.getElementById('iconLeftToggle')?.classList.contains('active');
+            const infoIcon = document.getElementById('infoIconToggle')?.classList.contains('active');
+
+            const accordionContainer = document.getElementById('accordionContainer');
+            accordionContainer.classList.toggle('mobile', isMobile);
+
+            document.querySelectorAll('.header-context span').forEach(el => {
+                el.style.display = showSecondary ? 'inline' : 'none';
+            });
+
+            document.querySelectorAll('.icon-Cube').forEach(el => {
+                el.style.display = iconLeft ? 'flex' : 'none';
+            });
+
+            document.querySelectorAll('.icon-Info-Circle').forEach(el => {
+                el.style.display = infoIcon ? 'flex' : 'none';
+            });
+
+            applyFocusSimulation();
+        }
+
+        function handleItemsChange(value) {
+            updateItemCount(parseInt(value));
+        }
+
+        function handleTitleChange(value) {
+            document.querySelectorAll('.header-title').forEach(el => {
+                el.textContent = value;
+            });
+        }
+
+        function handleToggleMobile(toggleElement) {
+            slide(toggleElement);
+            const accordionContainer = document.getElementById('accordionContainer');
+            accordionContainer.classList.toggle('mobile');
+        }
+
+        function handleToggleSecondaryLabel(toggleElement) {
+            slide(toggleElement);
+            const showSecondary = toggleElement.classList.contains('active');
+            document.querySelectorAll('.header-context span').forEach(el => {
+                el.style.display = showSecondary ? 'inline' : 'none';
+            });
+        }
+
+        function handleToggleIconLeft(toggleElement) {
+            slide(toggleElement);
+            const iconLeft = toggleElement.classList.contains('active');
+            document.querySelectorAll('.icon-Cube').forEach(el => {
+                el.style.display = iconLeft ? 'flex' : 'none';
+            });
+        }
+
+        function handleToggleInfoIcon(toggleElement) {
+            slide(toggleElement);
+            const infoIcon = toggleElement.classList.contains('active');
+            document.querySelectorAll('.icon-Info-Circle').forEach(el => {
+                el.style.display = infoIcon ? 'flex' : 'none';
+            });
+        }
+
+        function handleToggleFocus(toggleElement) {
+            slide(toggleElement);
+            applyFocusSimulation();
+        }
+
+        function handleToggleHighlighted(toggleElement) {
+            slide(toggleElement);
+            const highlighted = toggleElement.classList.contains('active');
+            const firstAccordion = document.querySelector('.accordion-item');
+
+            if (highlighted && firstAccordion) {
+                firstAccordion.classList.add('highlighted');
+            } else if (firstAccordion) {
+                firstAccordion.classList.remove('highlighted');
+            }
+        }
+
+        function applyFocusSimulation() {
+            const focusToggle = document.getElementById('focusToggle');
+            const summaries = document.querySelectorAll('.accordion-header');
+
+            summaries.forEach(summary => {
+                summary.classList.remove('simulate-focus');
+            });
+
+            if (focusToggle && focusToggle.classList.contains('active')) {
+                const firstSummary = summaries[0];
+                if (firstSummary) {
+                    firstSummary.classList.add('simulate-focus');
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
