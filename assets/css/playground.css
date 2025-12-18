@@ -1,0 +1,581 @@
+/* ============================================================ */
+/* IMPORTS - Design system tokens                               */
+/* ============================================================ */
+@import url('typography.css');
+@import url('colors.css');
+@import url('spacing-and-effects.css');
+@import url('icons.css');
+
+/* ============================================================ */
+/* BASE STYLES - Page setup                                     */
+/* ============================================================ */
+html,
+body {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-family: var(--r-ff-base), sans-serif;
+    background: var(--r-color-neutral-40);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* ============================================================ */
+/* PLAYGROUND CONTAINER - Side panel that slides from right    */
+/* ============================================================ */
+.playground {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 350px;
+    height: 100vh;
+    background: var(--r-color-neutral-lightest);
+    box-shadow: var(--r-shadow-lg);
+    padding: var(--r-spacing-xs);
+    box-sizing: border-box;
+    overflow-y: auto;
+    z-index: 1000;
+    transform: translateX(100%);
+    transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* Active state - Panel slides into view */
+.playground.active {
+    transform: translateX(0);
+}
+
+/* ============================================================ */
+/* MAIN CONTENT AREA - Where your component lives              */
+/* ============================================================ */
+.main-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--r-spacing-xs);
+    position: relative;
+    min-width: 0;
+    transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* ============================================================ */
+/* PLAYGROUND TOGGLE ICON - Settings gear icon (top right)     */
+/* ============================================================ */
+.playground-icon {
+    position: fixed;
+    background-image: url("../images/settings.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    top: 3vh;
+    right: 1.5vw;
+    width: var(--r-spacing-xs);
+    height: var(--r-spacing-xs);
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    z-index: 1001;
+    transition: all 0.3s ease;
+}
+
+/* Hidden state - Icon fades when playground is open */
+.playground-icon.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ============================================================ */
+/* PLAYGROUND HEADER - Title and close button                  */
+/* ============================================================ */
+.menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--r-spacing-sm);
+    padding-bottom: var(--r-spacing-2xs);
+    border-bottom: var(--r-border-width-sm) solid var(--r-color-neutral-10);
+}
+
+.menu-header h3 {
+    margin: 0;
+    color: var(--r-color-brand-secondary-default);
+    font-size: var(--r-font-size-xs);
+    font-weight: var(--r-font-weight-semibold);
+    font-family: var(--r-ff-highlight), sans-serif;
+}
+
+/* Close button (×) in header */
+.close-menu {
+    background: none;
+    border: none;
+    font-size: var(--r-font-size-2xs);
+    cursor: pointer;
+    color: var(--r-color-neutral-60);
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.close-menu:hover {
+    color: var(--r-color-brand-secondary-default);
+    background: var(--r-color-neutral-10);
+    border-radius: var(--r-border-radius-pill);
+}
+
+/* ============================================================ */
+/* MENU SECTIONS - Groups of controls within playground        */
+/* ============================================================ */
+.menu-section {
+    margin-bottom: var(--r-spacing-sm);
+}
+
+/* Section titles (h4) */
+.menu-section h4 {
+    margin: 0 0 var(--r-spacing-xs) 0;
+    color: var(--r-color-brand-secondary-default);
+    font-size: var(--r-font-size-3xs);
+    font-weight: var(--r-font-weight-semibold);
+    font-family: var(--r-ff-highlight), sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ============================================================ */
+/* BUTTONS (.menu-button) - Clickable option buttons           */
+/* ============================================================ */
+/*
+   Usage: Copy this entire button section to use in your component
+   States: default, hover, active, pressed
+   Works with: setActive() function for exclusive selection
+*/
+
+.menu-button {
+    display: block;
+    width: 100%;
+    padding: var(--r-spacing-3xs) var(--r-spacing-2xs);
+    margin-bottom: var(--r-spacing-3xs);
+    background: var(--r-color-neutral-lightest);
+    border: var(--r-border-width-sm) solid var(--r-color-neutral-30);
+    border-radius: var(--r-border-radius-md);
+    color: var(--r-color-brand-secondary-default);
+    font-size: var(--r-font-size-4xs);
+    font-weight: var(--r-font-weight-medium);
+    font-family: var(--r-ff-highlight), sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+/* Hover state */
+.menu-button:hover {
+    background: var(--r-color-neutral-10);
+    border-color: var(--r-color-brand-primary-light);
+    box-shadow: var(--r-shadow-sm);
+}
+
+/* Pressed/click state */
+.menu-button:active {
+    background: var(--r-color-neutral-30);
+    transform: translateY(1px);
+}
+
+/* Active/selected state - Add class="active" to button */
+.menu-button.active {
+    background: var(--r-color-brand-primary-default);
+    color: var(--r-color-neutral-lightest);
+    border-color: var(--r-color-brand-primary-default);
+    box-shadow: var(--r-shadow-md);
+}
+
+/* ============================================================ */
+/* MENU NOTE - To add any necessary comment.                    */
+/* ============================================================ */
+.menu-note {
+    font-size: 12px;
+    color: var(--r-color-neutral-60);
+    margin-top: var(--r-spacing-nano);
+    font-family: var(--r-ff-base), sans-serif;
+}
+
+/* ============================================================ */
+/* SETTING DISPLAY - Key-value pair rows (optional)            */
+/* ============================================================ */
+.setting-display {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--r-spacing-nano) 0;
+    border-bottom: 1px solid var(--r-color-neutral-10);
+}
+
+.setting-display:last-child {
+    border-bottom: none;
+}
+
+.setting-label {
+    font-size: var(--r-font-size-3xs);
+    color: var(--r-color-neutral-70);
+    font-weight: var(--r-font-weight-regular);
+}
+
+.setting-display span:last-child {
+    font-size: var(--r-font-size-3xs);
+    color: var(--r-color-brand-secondary-default);
+    font-weight: var(--r-font-weight-medium);
+}
+
+/* ============================================================ */
+/* SLIDERS / TOGGLES (.switch) - Toggle switches               */
+/* ============================================================ */
+/*
+   Usage: Copy this entire slider section to use in your component
+   Types:
+     1. Centered slider: .switch_toggle (default)
+     2. Left-aligned slider: .switch_toggle.left
+   States: is-disabled (off), active (on)
+   Works with: slide() function to toggle states
+*/
+
+/* Container for slider - centers by default */
+.switch_toggle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--r-spacing-xs);
+}
+
+/* Left-aligned variant - Use class="switch_toggle left" */
+.switch_toggle.left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start !important;
+    justify-content: center;
+}
+
+/* Label text above slider (for left-aligned variant) */
+.label {
+    line-height: var(--r-font-size-xs);
+    font-size: var(--r-font-size-3xs);
+    font-weight: normal;
+    font-family: var(--r-ff-base), sans-serif;
+}
+
+/* Inner wrapper for switch and text labels */
+.switch_toggle_secondary {
+    display: flex;
+    align-items: center;
+}
+
+/* The switch/toggle track itself */
+.switch {
+    position: relative;
+    width: var(--r-spacing-2lg);
+    height: 24px;
+    background: var(--r-color-neutral-50);
+    border-radius: var(--r-border-radius-pill);
+    cursor: pointer;
+    margin-top: var(--r-spacing-nano);
+    margin-bottom: var(--r-spacing-nano);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
+}
+
+/* Disabled/off state slider appearance */
+.switch.is-disabled .slider {
+    background: var(--r-color-neutral-lightest);
+    box-shadow: var(--r-shadow-sm);
+}
+
+/* Text labels on left/right of switch */
+.switch_text.left,
+.switch_text.right {
+    font-weight: var(--r-font-weight-regular) !important;
+    transition: all 0.2s ease;
+}
+
+/* Bold right text when switch is active */
+.switch_toggle_secondary:has(.switch.active) .switch_text.right {
+    font-weight: var(--r-font-weight-bold) !important;
+}
+
+/* Bold left text when switch is disabled */
+.switch_toggle_secondary:has(.switch.is-disabled) .switch_text.left {
+    font-weight: var(--r-font-weight-bold) !important;
+}
+
+/* Shared text styles */
+.switch_text {
+    font-size: var(--r-font-size-3xs);
+    align-items: center;
+    line-height: var(--r-line-height-md);
+    padding: var(--r-spacing-nano);
+    font-family: var(--r-ff-base), sans-serif;
+}
+
+/* The sliding ball/knob inside the switch */
+.slider {
+    position: relative;
+    display: flex;
+    width: var(--r-spacing-2xs);
+    height: var(--r-spacing-2xs);
+    left: -2px;
+    background: var(--r-color-neutral-lightest);
+    border-radius: var(--r-border-radius-pill);
+    box-shadow: var(--r-shadow-sm);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Active/on state - Switch track turns blue */
+.switch.active {
+    background: var(--r-color-brand-primary-default);
+}
+
+/* Active/on state - Slider moves to the right */
+.slider.active {
+    left: 11px;
+    background: var(--r-color-neutral-lightest);
+    box-shadow: var(--r-shadow-md);
+    transform: scale(1.05);
+}
+
+/* ============================================================ */
+/* DROPDOWN MENU (.dropdown) - Custom dropdown menus             */
+/* ============================================================ */
+/*
+   Usage: Copy this entire dropdown section to use in your component
+   Types:
+     1. Container: .dropdown (inline layout for dropdown trigger)
+     2. Menu List: .dropdown-content (hidden by default)
+     3. Link Item: .dropdown-content a (styled option item)
+   States:
+     - Default: hidden menu
+     - :focus/:hover on options for interactive highlighting
+   Works with: JavaScript to toggle .dropdown-content display
+*/
+
+/* Dropdown container - inline display, width fits content */
+.dropdown {
+	display: inline-block;
+	max-width: min-content;
+}
+
+/* Dropdown contents - hidden by default, styled popup list */
+.dropdown-content {
+	display: none;
+	border: var(--r-border-width-sm) solid var(--r-color-neutral-30);
+	border-radius: var(--r-border-radius-sm);
+	box-shadow: var(--r-shadow-sm);
+	overflow: hidden;
+	margin-top: 2px;
+	margin-left: 2px;
+	margin-right: 2px;
+	list-style: none;
+}
+
+/* Dropdown option links - block layout, custom styles */
+.dropdown-content a {
+	font-family: var(--r-ff-base), sans-serif;
+	font-size: var(--r-font-size-3xs);
+	font-weight: var(--r-font-weight-medium);
+	letter-spacing: var(--r-letter-spacing-sm);
+	color: var(--r-color-brand-secondary-default);
+	text-decoration: none;
+	display: block;
+	padding-top: 13px;
+	padding-bottom: 13px;
+	padding-left: var(--r-spacing-xs);
+	padding-right: var(--r-spacing-xs);
+}
+
+/* Option focus state - highlighted background/text */
+.dropdown-content a:focus {
+	background-color: var(--r-color-info-pure) !important;
+	color: var(--r-color-neutral-lightest) !important;
+}
+
+/* Option hover state - light neutral background, info color text */
+.dropdown-content a:hover {
+    background-color: var(--r-color-neutral-10);
+    color: var(--r-color-info-pure);
+}
+
+/* ============================================================ */
+/* NUMBER SELECTOR - Select a number from a range              */
+/* ============================================================ */
+/*
+   Usage: Copy this entire number selector section to use in your component
+   Types:
+     1. Container: .number-selector-container (wrapper with label)
+     2. Buttons wrapper: .number-selector-buttons (horizontal number list)
+     3. Button: .number-selector-button (individual number)
+   States: default, active (selected number)
+   Works with: selectNumber() function to handle selection
+*/
+
+/* Container for number selector with label */
+.number-selector-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--r-spacing-2xs);
+    margin-bottom: var(--r-spacing-xs);
+}
+
+/* Label for the number selector */
+.number-selector-label {
+    font-size: var(--r-font-size-3xs);
+    font-weight: normal;
+    font-family: var(--r-ff-base), sans-serif;
+    line-height: var(--r-font-size-xs);
+    color: var(--r-color-neutral-darkest);
+}
+
+/* Wrapper for number buttons - horizontal layout */
+.number-selector-buttons {
+    display: flex;
+    gap: var(--r-spacing-3xs);
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.number-selector-buttons.centered {
+    justify-content: center;
+}
+
+/* Individual number button */
+.number-selector-button {
+    min-width: var(--r-spacing-lg);
+    height: var(--r-spacing-2lg);
+    padding: var(--r-spacing-3xs) var(--r-spacing-2xs);
+    background: var(--r-color-neutral-10);
+    border: var(--r-border-width-sm) solid var(--r-color-neutral-30);
+    border-radius: var(--r-border-radius-lg);
+    color: var(--r-color-neutral-70);
+    font-size: var(--r-font-size-3xs);
+    font-weight: var(--r-font-weight-medium);
+    font-family: var(--r-ff-base), sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+/* Hover state */
+.number-selector-button:hover {
+    background: var(--r-color-neutral-20);
+    border-color: var(--r-color-brand-primary-light);
+    color: var(--r-color-brand-secondary-default);
+}
+
+/* Active/selected state */
+.number-selector-button.active {
+    background: var(--r-color-brand-primary-default);
+    color: var(--r-color-neutral-lightest);
+    border-color: var(--r-color-brand-primary-default);
+    font-weight: var(--r-font-weight-semibold);
+}
+
+/* ============================================================ */
+/* INPUT FIELDS (.playground-input-container) - Custom inputs    */
+/* ============================================================ */
+/*
+   Usage: Copy this entire input section to use in your component
+   Types:
+     1. Single Input: one .playground-input-data inside .playground-input-row
+     2. Double Inputs: two .playground-input-data elements side by side (e.g. Min / Max)
+   States:
+     - :focus changes border color for visual feedback
+*/
+
+/* Container of input fields (label + inputs) */
+.playground-input-container {
+    display: flex;
+    flex-direction: column; 
+    gap: var(--r-fixed-ant);
+    margin-bottom: var(--r-spacing-xs);
+    width: 100%;
+}
+
+/* Row layout for one or two inputs side by side */
+.playground-input-row {
+    display: flex;
+    gap: var(--r-spacing-nano);
+}
+
+/* Input field style */
+.playground-input-data {
+    border: 1px solid var(--r-color-neutral-60);
+    border-radius: 6px;
+    box-sizing: border-box;
+    color: var(--r-color-brand-secondary-light);
+    flex: 1; 
+    font-size: var(--r-font-size-3xs);    
+    height: 30px;             
+    min-width: 0;             
+    padding: 0 var(--r-spacing-nano);
+    transition: all 0.2s ease;
+}
+
+/* Focus state - adds red border for visual feedback */
+.playground-input-data:focus {
+    border: 1px solid var(--r-color-brand-primary-default);
+    outline: none !important;
+}
+
+.playground-input-container.hidden {
+    display: none;
+}
+
+/* ============================================================== */
+/* GROUP BUTTON                                                   */
+/* ============================================================== */
+.button-group {
+    font-size: 0;
+    border-radius: var(--r-border-radius-sm);
+    width: fit-content;
+    height: var(--r-spacing-2lg);
+
+    margin: var(--r-spacing-nano) 0 var(--r-spacing-xs) 0;
+}
+
+.button-group button {
+    border: 1px solid var(--r-color-neutral-darkest);
+    background-color: var(--r-color-neutral-lightest);
+    box-sizing: border-box;
+    padding: 11px;
+    margin: -1px;
+}
+
+.button-group button:first-child {
+    border-radius: var(--r-spacing-nano) 0 0 var(--r-spacing-nano);
+}
+
+.button-group button:last-child {
+    border-radius: 0 var(--r-spacing-nano) var(--r-spacing-nano) 0;
+}
+
+.button-group button:hover {
+    background-color: var(--r-color-neutral-20);
+}
+.button-group button.active {
+    background-color: var(--r-color-neutral-darkest);
+    color: var(--r-color-neutral-lightest);
+}
+
+.text-input {
+    color: var(--r-color-neutral-60);
+    margin: var(--r-spacing-nano) 0 var(--r-spacing-xs) 0;
+    padding: 60px 10px;
+    border-radius: var(--r-spacing-nano);
+    border: 1px solid;
+}

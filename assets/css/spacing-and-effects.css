@@ -1,0 +1,76 @@
+:root {
+  /* ==================== BORDER RADIUS ====================*/
+  --r-border-radius-none: 0px;
+  --r-border-radius-sm: 4px;
+  --r-border-radius-md: 8px;
+  --r-border-radius-lg: 12px;
+  --r-border-radius-xl: 16px;
+  --r-border-radius-xxl: 24px;
+  --r-border-radius-pill: 1000px;
+
+  /* ==================== BORDER WIDTH ====================*/
+  --r-border-width-none: 0px;
+  --r-border-width-sm: 1px;
+  --r-border-width-md: 2px;
+  --r-border-width-heavy: 4px;
+  --r-border-width-black: 8px;
+
+  /* ==================== OPACITY LEVELS ====================*/
+  --r-opacity-level-opaque: 100%;
+  --r-opacity-level-high: 75%;
+  --r-opacity-level-medium: 50%;
+  --r-opacity-level-low: 25%;
+
+  /* ==================== SHADOWS ====================*/
+ --r-shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --r-shadow-xs-carousel: 0px 1px 3px 1px rgb(37, 42, 54, 0.15);
+
+  --r-shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --r-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --r-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --r-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --r-shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+  /* ==================== SPACING SIZE ====================*/
+  --r-fixed-ant: 4px;
+  --r-spacing-nano: 8px;
+  --r-spacing-3xs: 12px;
+  --r-spacing-2xs: 16px;
+  --r-spacing-xs: 20px;
+  --r-spacing-sm: 24px;
+  --r-spacing-base: 28px;
+  --r-spacing-md: 32px;
+  --r-spacing-2lg: 40px;
+  --r-spacing-lg: 48px;
+  --r-spacing-xl: 56px;
+  --r-spacing-2xl: 64px;
+  --r-spacing-3xl: 80px;
+  --r-spacing-4xl: 100px;
+  --r-spacing-huge: 120px;
+  --r-spacing-giant: 160px;
+  --r-spacing-xgiant: 200px;
+  --r-spacing-xlgiant: 350px;
+
+  /* ==================== FIXED SIZE ====================*/
+  --r-fixed-ant: 4px;
+  --r-fixed-nano: 8px;
+  --r-fixed-3xs: 12px;
+  --r-fixed-2xs: 16px;
+  --r-fixed-xs: 20px;
+  --r-fixed-sm: 24px;
+  --r-fixed-base: 28px;
+  --r-fixed-md: 32px;
+  --r-fixed-2lg: 40px;
+  --r-fixed-lg: 48px;
+  --r-fixed-xl: 56px;
+  --r-fixed-2xl: 64px;
+  --r-fixed-3xl: 80px;
+  --r-fixed-4xl: 100px;
+  --r-fixed-huge: 120px;
+  --r-fixed-giant: 160px;
+  --r-fixed-xgiant: 200px;
+  --r-fixed-xlgiant: 350px;
+
+/* ==================== DEVICE SIZES ====================*/
+  --r-device-mobile-max: 440px;
+}

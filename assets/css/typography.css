@@ -1,0 +1,124 @@
+@font-face {
+  font-family: 'Poppins';
+  src: url('./../fonts/poppins/Poppins-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('./../fonts/poppins/Poppins-LightItalic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('./../fonts/poppins/Poppins-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('./../fonts/poppins/Poppins-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('./../fonts/poppins/Poppins-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('./../fonts/poppins/Poppins-MediumItalic.ttf') format('truetype');
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('./../fonts/poppins/Poppins-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('./../fonts/poppins/Poppins-SemiBoldItalic.ttf') format('truetype');
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('./../fonts/poppins/Poppins-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('./../fonts/poppins/Poppins-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('./../fonts/roboto/Roboto-VariableFont_wdth,wght.ttf') format('truetype');
+  font-weight: 300 700;
+  font-style: swap;
+}
+
+:root {
+  /* ==================== FONT FAMILY HIGHLIGHT ==================== */
+  --r-ff-highlight: Poppins;
+
+  --r-font-weight-light: 300;
+  --r-font-weight-regular: 400;
+  --r-font-weight-medium: 500;
+  --r-font-weight-semibold: 600;
+  --r-font-weight-bold: 700;
+
+  /* ==================== FONT FAMILY BASE ==================== */
+  --r-ff-base: Roboto;
+
+  --r-font-weight-light: 300;
+  --r-font-weight-regular: 400;
+  --r-font-weight-medium: 500;
+  --r-font-weight-semibold: 600;
+  --r-font-weight-bold: 700;
+
+  /* ==================== FONT SIZE ==================== */
+  --r-font-size-ant: 6px;
+  --r-font-size-nano: 8px;
+  --r-font-size-5xs: 10px;
+  --r-font-size-4xs: 12px;
+  --r-font-size-3xs: 14px;
+  --r-font-size-2xs: 16px;
+  --r-font-size-xs: 18px;
+  --r-font-size-sm: 20px;
+  --r-font-size-md: 22px;
+  --r-font-size-lg: 24px;
+  --r-font-size-xl: 26px;
+  --r-font-size-2xl: 28px;
+  --r-font-size-3xl: 30px;
+  --r-font-size-4xl: 32px;
+  --r-font-size-5xl: 48px;
+
+  /* ==================== LINE HEIGHT ==================== */
+  --r-line-height-xs: 133%;
+  --r-line-height-sm: 140%;
+  --r-line-height-md: 150%;
+  --r-line-height-lg: 180%;
+
+  /* ==================== LETTER SPACING ==================== */
+  --r-letter-spacing-none: 0;
+  --r-letter-spacing-sm: 0.01em;  /* 1% */
+  --r-letter-spacing-md: 0.02em;  /* 2% */
+}
